@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pra Sempre ❤️</title>
+
+    <style>
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: linear-gradient(135deg, #3a0f22, #7a2c4f);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: Arial, sans-serif;
+        color: white;
+        text-align: center;
+        overflow: hidden;
+      }
+
+      .container {
+        width: 90%;
+        max-width: 420px;
+        z-index: 2;
+      }
+
+      h1 {
+        font-size: 1.7rem;
+        margin-bottom: 20px;
+      }
+
+      p {
+        font-size: 1rem;
+        line-height: 1.6;
+        margin-bottom: 15px;
+      }
+
+      .final {
+        margin-top: 25px;
+        font-size: 1.1rem;
+        font-weight: bold;
+      }
+
+      .hearts {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      .heart {
+        position: absolute;
+        font-size: 18px;
+        animation: fall linear infinite;
+        opacity: 0.8;
+      }
+
+      @keyframes fall {
+        0% {
+          transform: translateY(-10%);
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(110vh);
+          opacity: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="hearts"></div>
+
+    <div class="container">
+      <h1>Não é só um presente…</h1>
+
+      <p>
+        É a forma que eu encontrei de te mostrar que, mesmo quando a vida
+        aperta, mesmo quando o tempo falha, o meu sentimento não falha.
+      </p>
+
+      <p>
+        Eu não quero ser alguém que passa. Eu quero ser alguém que fica. Que
+        constrói, que respeita, que entende, que ama do jeito certo.
+      </p>
+
+      <p>
+        Amar você não é impulso, é escolha. E eu escolho você todos os dias.
+      </p>
+
+      <div class="final">
+        Hoje, amanhã e enquanto existir caminho… eu caminho com você. ❤️
+      </div>
+    </div>
+    <script>
+      const heartsContainer = document.querySelector(".hearts");
+
+      function createHeart() {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML = "❤️";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.fontSize = Math.random() * 10 + 14 + "px";
+        heart.style.animationDuration = Math.random() * 3 + 4 + "s";
+        heartsContainer.appendChild(heart);
+        setTimeout(() => heart.remove(), 7000);
+      }
+
+      setInterval(createHeart, 350);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nossas Memórias ❤️</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Arial", sans-serif;
+      }
+
+      body {
+        min-height: 100vh;
+        background: linear-gradient(135deg, #6b2b45, #b45a7a);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        overflow: hidden;
+      }
+
+      .container {
+        width: 90%;
+        max-width: 420px;
+        text-align: center;
+        z-index: 2;
+      }
+
+      h1 {
+        margin-bottom: 10px;
+        font-size: 1.6rem;
+      }
+
+      .carousel {
+        position: relative;
+        width: 100%;
+        height: 300px;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+        background: #000;
+        margin-bottom: 15px;
+      }
+
+      .carousel img {
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        width: 100%;
+        height: 100%;
+
+        object-fit: contain;
+        object-position: center;
+
+        opacity: 0;
+        transition: opacity 0.8s ease-in-out;
+
+        background-color: #000;
+      }
+
+      .carousel img.active {
+        opacity: 1;
+      }
+      .caption {
+        background: rgba(0, 0, 0, 0.45);
+        padding: 12px 15px;
+        border-radius: 15px;
+        font-size: 0.95rem;
+        line-height: 1.4;
+        min-height: 90px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 12px;
+      }
+
+      .controls {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+      }
+
+      button {
+        flex: 1;
+        padding: 10px;
+        border: none;
+        border-radius: 25px;
+        background: #ffb6c1;
+        color: #5a1f33;
+        font-size: 1rem;
+        cursor: pointer;
+        transition:
+          transform 0.2s ease,
+          background 0.3s;
+      }
+
+      button:hover {
+        background: #ffd1dc;
+        transform: scale(1.05);
+      }
+
+      .hearts {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      .heart {
+        position: absolute;
+        font-size: 18px;
+        animation: fall linear infinite;
+        opacity: 0.8;
+      }
+
+      @keyframes fall {
+        0% {
+          transform: translateY(-10%);
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(110vh);
+          opacity: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="hearts"></div>
+
+    <div class="container">
+      <h1>Nossas Memórias 💞</h1>
+
+      <div class="carousel">
+        <img src="images/foto1.jpg" class="active" />
+        <img src="images/foto2.jpg" />
+        <img src="images/foto3.jpg" />
+        <img src="images/foto4.jpg" />
+        <img src="images/foto5.jpg" />
+        <img src="images/foto6.jpg" />
+        <img src="images/foto7.jpg" />
+      </div>
+
+      <div class="caption" id="caption"></div>
+
+      <div class="controls">
+        <button onclick="prevSlide()">◀</button>
+        <button onclick="nextSlide()">▶</button>
+      </div>
+
+      <div style="margin-top: 20px">
+        <button onclick="window.location.href = 'final.html'">
+          Continuar 💗
+        </button>
+      </div>
+    </div>
+    <script>
+      const slides = document.querySelectorAll(".carousel img");
+      const caption = document.getElementById("caption");
+
+      const texts = [
+        "Te ver deitada na minha cama foi quando eu percebi que meu lugar no mundo é onde você está. Cada detalhe seu me traz paz, desejo e vontade de viver tudo ao seu lado.",
+
+        "Ela é um pedacinho de amor que a vida colocou no meu caminho. Olhar pra ela é lembrar que amar você também é amar tudo o que vem com você.",
+
+        "Vocês duas juntas são a imagem mais bonita do meu futuro. É ali que mora meu sonho, minha saudade quando estou longe e minha certeza quando estou perto.",
+
+        "Cada sorriso dela me lembra que eu quero estar presente. Cuidar, proteger, amar… não por obrigação, mas porque meu coração escolheu vocês.",
+
+        "Nesse momento eu entendi que não é só amor, é responsabilidade do coração. Estar ao lado dela contigo me faz querer ser melhor todos os dias.",
+
+        "Nosso abraço é casa. É refúgio. É desejo calmo e amor que não grita, mas permanece. Eu te quero hoje, amanhã e por toda a vida.",
+
+        "De mãos dadas, prometo caminhar contigo mesmo quando a estrada for difícil. Porque amar você é uma escolha diária que eu faria mil vezes.",
+      ];
+
+      let current = 0;
+
+      function showSlide(index) {
+        slides.forEach((slide) => slide.classList.remove("active"));
+        slides[index].classList.add("active");
+        caption.innerText = texts[index];
+      }
+
+      function nextSlide() {
+        current = (current + 1) % slides.length;
+        showSlide(current);
+      }
+
+      function prevSlide() {
+        current = (current - 1 + slides.length) % slides.length;
+        showSlide(current);
+      }
+
+      showSlide(current);
+      setInterval(nextSlide, 6000);
+
+      const heartsContainer = document.querySelector(".hearts");
+      function createHeart() {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML = "❤️";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.fontSize = Math.random() * 10 + 14 + "px";
+        heart.style.animationDuration = Math.random() * 3 + 4 + "s";
+        heartsContainer.appendChild(heart);
+        setTimeout(() => heart.remove(), 7000);
+      }
+
+      setInterval(createHeart, 300);
+    </script>
+  </body>
+</html>
